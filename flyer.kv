@@ -1,0 +1,98 @@
+Manager:
+    Menu:
+        name:'menu'
+    Game:
+        name:'game'
+    GameOver:
+        name:'gameOver'
+
+<MenuButton@Button>:
+    font_size:'50sp'
+    background_normal:'images/botton2.png'
+    background_down:'images/botton1.png'
+    border:90,90,90,90
+
+<Menu>:
+    BoxLayout:
+        canvas:
+            Color: 
+                rgba:1,1,1,1
+            Rectangle:
+                size:self.size
+                pos:self.pos
+                source:'images/bg_menu.png'
+        orientation:'vertical'
+        padding:'200dp', '50dp'
+        spacing:'150dp'
+        Widget:
+        BoxLayout:
+            padding:'100dp'
+            spacing:'150dp'
+            MenuButton:
+                text:'Jogar'
+                on_release:app.root.current = 'game'
+            MenuButton:
+                text:'Sair'
+                on_release:app.stop()
+
+<Player>:
+    source:'images/player.png'
+
+<Game>:
+    canvas:
+        Color: 
+            rgba:1,1,1,1
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images/bg.png'
+    FloatLayout:
+        Label:
+            text:'Pontos: ' + str(int(root.score))
+            color:(0, 0, 1, 1)
+            font_size:'70sp'
+            bold:True
+            size_hint_y:None
+            height:self.font_size
+            y:root.height*0.95-self.height
+            #text_color: 99,156,64,0,8
+            
+        Player:
+            id:player
+            allow_stretch:True
+            size_hint:None,None
+            size:root.height/15, root.height/15
+            x:root.width/20
+            y:root.height/2
+
+<GameOver>:
+    BoxLayout:
+        orientation:'vertical'
+        padding:'600dp','60dp'
+        spacing:'150dp'
+        canvas:
+            Color: 
+                rgba:1,1,1,1
+            Rectangle:
+                size:self.size
+                pos:self.pos
+                source:'images/bg_gameover.png'
+        Widget:
+            size_hint_y:1.5
+        MenuButton:
+            text:'Retry'
+            on_release:app.root.current = 'game'
+        MenuButton:
+            text:'Sair'
+            on_release:app.stop()
+
+<Obstacle>:
+    canvas:
+        # Color:
+        #     rgba:self.color
+        Rectangle:
+            source:'images/box.png'
+            size:self.size
+            pos:self.pos
+    size_hint:None,None
+    width:'150dp'
